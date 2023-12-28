@@ -211,7 +211,7 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <h1 id="ISO8601-Duration"><a href="#ISO8601-Duration" class="headerlink" title="ISO8601 Duration"></a>ISO8601 Duration</h1><p>:label:python, ISO8601 duration</p>
 <p>问题：对于形如YYYYMMDDTHHMMSS的给定参考时间（ref-&gt;str），和相应的时间间隔（duration-&gt;str）形如P0Y0M0DT0H30M0S，需要得到ref+duration的结果。</p>
-<p>可以采用<code>ispduration</code>库来解决相应问题。datetime类型数据可以和Duration类数据直接加减，将ref字符串转化为datetime类型然后将duration字符串转化为duration对象，最后再加减即可。</p>
+<p>可以采用<code>ispduration</code>库来解决相应问题。datetime类型数据可以和Duration类数据直接加减，将ref字符串转化为<code>datetime</code>类型然后将duration字符串转化为<code>Duration</code>对象，最后再加减即可。</p>
 <blockquote>
 <p>参考：</p>
 <ul>
@@ -227,6 +227,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">1</span>]: <span class="keyword">from</span> isoduration <span class="keyword">import</span> parse_duration</span><br><span class="line">   ...: <span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line">   ...:</span><br><span class="line">   ...: <span class="keyword">def</span> <span class="title function_">refAddDuration</span>(<span class="params">ref:<span class="built_in">str</span>, duration:<span class="built_in">str</span></span>)-&gt;<span class="built_in">str</span>:</span><br><span class="line">   ...:     <span class="string">&quot;&quot;&quot;处理ref time和duration相加情况</span></span><br><span class="line"><span class="string">   ...:     tgt=ref time + duration</span></span><br><span class="line"><span class="string">   ...:     &quot;&quot;&quot;</span></span><br><span class="line">   ...:     ref=datetime.strptime(ref, <span class="string">&quot;%Y%m%dT%H%M%S&quot;</span>)</span><br><span class="line">   ...:     duration=parse_duration(duration)</span><br><span class="line">   ...:     ref=ref+duration</span><br><span class="line">   ...:     <span class="keyword">return</span> ref.strftime(<span class="string">&quot;%Y%m%dT%H%M%S&quot;</span>) <span class="comment">#返回格式按照自己的需求设定，我需要yyyymmddThhmmss的字符串格式</span></span><br><span class="line">   ...:</span><br><span class="line"></span><br><span class="line">In [<span class="number">2</span>]: ref=<span class="string">&quot;20231201T123059&quot;</span></span><br><span class="line">   ...: duration=<span class="string">&quot;P0Y2M3DT13H0M0S&quot;</span></span><br><span class="line">   ...: <span class="built_in">print</span>(refAddDuration(ref=ref, duration=duration))</span><br><span class="line">20240205T013059</span><br></pre></td></tr></table></figure>
 
 <p>处理结果如上，值得注意的是duration指定的时间间隔不是一段绝对时间，比如1月1日开始的1个月和2月1日开始的1个月，时间间隔是不同的，如果自己手搓需要注意。</p>
+<p><code>以上内容仅供参考，isoduration</code> 的使用以官方文档为准。</p>
 
 
                 
